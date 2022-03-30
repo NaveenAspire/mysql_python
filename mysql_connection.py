@@ -38,7 +38,7 @@ class MysqlData:
         file_path = data_path+"/"+file_name
         data_as_df.to_json(file_path, orient='records', lines= True)
         key = 'mysql_python/source/'+file_name
-        # self.upload_json_to_s3(file_path,self.bucket_name,key)
+        self.upload_to_s3(file_path,self.bucket_name,key)
         
         
     def get_csv_file(self,data_as_df):
@@ -50,13 +50,13 @@ class MysqlData:
         file_path = data_path+"/"+file_name
         data_as_df.to_csv(file_path,index=False)
         key = 'mysql_python/stage/'+file_name
-        # self.upload_json_to_s3(file_path,self.bucket_name,key)
+        self.upload_to_s3(file_path, self.bucket_name, key)
     
     
-    def upload_json_to_s3(self,file,bucket_name,key):
+    def upload_to_s3(self, file, bucket_name, key):
         """This method that is used for upload file into the s3 bucket."""
-        s3 =S3Service()
-        s3.upload_file_to_s3(file,bucket_name,key)
+        s3 = S3Service()
+        s3.upload_file_to_s3(file, bucket_name, key)
     
 def main():
     """This is the main method for the module mysql_connection"""  
